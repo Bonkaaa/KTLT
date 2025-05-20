@@ -1,0 +1,85 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Flowchart" id="Ogo2ZEDdb6shQg6sG_2K">
+    <mxGraphModel dx="1462" dy="727" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Chương trình -->
+        <mxCell id="2" value="Chương trình" style="rounded=0;fillColor=#D3D3D3;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="400" y="20" width="200" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- 5 chức năng chính -->
+        <mxCell id="3" value="Nhập dữ liệu đầu vào" style="rounded=0;fillColor=#D3D3D3;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="100" y="100" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="4" value="Tìm miền chứa nghiệm" style="rounded=0;fillColor=#D3D3D3;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="350" y="100" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="5" value="Tìm khoảng phân ly nghiệm" style="rounded=0;fillColor=#D3D3D3;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="600" y="100" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="6" value="Vẽ đồ thị hàm số" style="rounded=0;fillColor=#D3D3D3;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="225" y="160" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7" value="Tìm nghiệm gần đúng bằng phương pháp tiếp tuyến" style="rounded=0;fillColor=#D3D3D3;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="500" y="160" width="320" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="8" value="Xây dựng menu chức năng" style="rounded=0;fillColor=#D3D3D3;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="360" y="230" width="240" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Nhánh trong "Tìm nghiệm gần đúng..." -->
+        <mxCell id="9" value="Sai số cho trước" style="rounded=0;fillColor=#D3D3D3;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="400" y="300" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="10" value="Số lần lặp cho trước" style="rounded=0;fillColor=#D3D3D3;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="650" y="300" width="200" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Các tùy chọn trong mỗi nhánh -->
+        <mxCell id="11" value="Nhập khoảng phân ly nghiệm từ bàn phím" style="rounded=0;fillColor=#D3D3D3;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="400" y="360" width="280" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="12" value="Sử dụng khoảng phân ly đã tìm được" style="rounded=0;fillColor=#D3D3D3;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="400" y="420" width="280" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="13" value="Nhập khoảng phân ly nghiệm từ bàn phím" style="rounded=0;fillColor=#D3D3D3;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="650" y="360" width="280" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="14" value="Sử dụng khoảng phân ly đã tìm được" style="rounded=0;fillColor=#D3D3D3;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="650" y="420" width="280" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Nhánh của Tìm khoảng phân ly nghiệm -->
+        <mxCell id="15" value="Nhập miền chứa nghiệm từ bàn phím" style="rounded=0;fillColor=#D3D3D3;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="600" y="200" width="280" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="16" value="Sử dụng một miền chứa nghiệm đã tìm được" style="rounded=0;fillColor=#D3D3D3;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="600" y="260" width="280" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Edges -->
+        <mxCell id="e1" style="endArrow=block;" edge="1" parent="1" source="2" target="3" />
+        <mxCell id="e2" style="endArrow=block;" edge="1" parent="1" source="2" target="4" />
+        <mxCell id="e3" style="endArrow=block;" edge="1" parent="1" source="2" target="5" />
+        <mxCell id="e4" style="endArrow=block;" edge="1" parent="1" source="2" target="6" />
+        <mxCell id="e5" style="endArrow=block;" edge="1" parent="1" source="2" target="7" />
+        <mxCell id="e6" style="endArrow=block;" edge="1" parent="1" source="2" target="8" />
+
+        <mxCell id="e7" style="endArrow=block;" edge="1" parent="1" source="7" target="9" />
+        <mxCell id="e8" style="endArrow=block;" edge="1" parent="1" source="7" target="10" />
+
+        <mxCell id="e9" style="endArrow=block;" edge="1" parent="1" source="9" target="11" />
+        <mxCell id="e10" style="endArrow=block;" edge="1" parent="1" source="9" target="12" />
+
+        <mxCell id="e11" style="endArrow=block;" edge="1" parent="1" source="10" target="13" />
+        <mxCell id="e12" style="endArrow=block;" edge="1" parent="1" source="10" target="14" />
+
+        <mxCell id="e13" style="endArrow=block;" edge="1" parent="1" source="5" target="15" />
+        <mxCell id="e14" style="endArrow=block;" edge="1" parent="1" source="5" target="16" />
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
