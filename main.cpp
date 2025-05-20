@@ -464,42 +464,10 @@ int main() {
                 case 0: {
                     // Nhập dữ liệu ban đầu
 
-                    printf("Nhập số bậc của đa thức (n): ");
-                    scanf("%d", &degree);
-                    fprintf(file, "Hệ số đa thức bậc %d:\n", degree); // Ghi vào file
-
-
-                    printf("Nhập hệ số (từ bậc 0 đến bậc %d):\n", degree);
-                    for (int i = 0; i <= degree; i++) {
-                        printf("Hệ số bậc %d: ", i);
-                        scanf("%lf", &coeffs[i]);
-                        fprintf(file, "Hệ số bậc %d: %.2lf\n", i, coeffs[i]); // Ghi vào file
-                    }
-                    printf("Đa thức đã nhập là: ");
-                    fprintf(file, "Đa thức đã nhập là: "); // Ghi vào file
-                    for (int i = degree; i >= 0; i--) {
-                        if (i == degree) {
-                            printf("%.2lfx^%d", coeffs[i], i);
-                            fprintf(file, "%.2lfx^%d", coeffs[i], i); // Ghi vào file
-                        } else if (coeffs[i] > 0) {
-                            printf(" + %.2lfx^%d", coeffs[i], i);
-                            fprintf(file, " + %.2lfx^%d", coeffs[i], i); // Ghi vào file
-                        } else if (coeffs[i] < 0) {
-                            printf(" - %.2lfx^%d", -coeffs[i], i);
-                            fprintf(file, " - %.2lfx^%d", -coeffs[i], i); // Ghi vào file
-                        }
-                    }
-                    printf("\n");
-                    fprintf(file, "\n"); // Ghi vào file
-
-                    printf("Nhập số chữ số thập phân sẽ được hiện thị ở kết quả: ");
-                    scanf("%d", &precision);
-                    fprintf(file, "Số chữ số thập phân sẽ được hiện thị ở kết quả: %d\n", precision); // Ghi vào file
-
-                    has_coeffs = 1; // Đánh dấu đã có hệ số
-                    printf("Đã nhập dữ liệu thành công!\n");
-                    fprintf(file, "Đã nhập dữ liệu thành công!\n"); // Ghi vào file
-                    fprintf(file, "---------------------------\n"); // Ghi vào file
+                    nhap_du_lieu_dau_vao(file, coeffs, &degree, &precision);
+                    has_coeffs = 1;
+                    has_root = 0;
+                    has_interval = 0;
                     printf("\nNhấn phím bất kỳ để quay lại menu chính...");
                     getch();
                     break;
