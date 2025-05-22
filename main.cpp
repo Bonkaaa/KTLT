@@ -13,7 +13,7 @@
 
 // Các hàm bổ trợ
 
-// Khởi tạo f(x)
+// Khởi tạo f(x) - Nguyễn Hữu Kiên - 20237451
 double f(double x, double coeffs[], int degree) {
     double result = 0.0;
     for (int i = 0; i <= degree; i++) {
@@ -22,7 +22,7 @@ double f(double x, double coeffs[], int degree) {
     return result;
 }
 
-// Khởi tạo f'(x)
+// Khởi tạo f'(x) - Nguyễn Hữu Kiên - 20237451
 double df(double x, double coeffs[], int degree) {
     double result = 0.0;
     for (int i = 1; i <= degree; i++) {
@@ -31,7 +31,7 @@ double df(double x, double coeffs[], int degree) {
     return result;
 }
 
-// Khởi tạo f''(x)
+// Khởi tạo f''(x) - Nguyễn Hữu Kiên - 20237451
 double d2f(double x, double coeffs[], int degree) {
     double result = 0.0;
     for (int i = 2; i <= degree; i++) {
@@ -40,14 +40,14 @@ double d2f(double x, double coeffs[], int degree) {
     return result;
 }
 
-// Tìm hệ số của đạo hàm
+// Tìm hệ số của đạo hàm - Nguyễn Hữu Kiên - 20237451
 void f_prime(double coeffs[], double deriv[], int degree) {
     for (int i = 1; i <= degree; i++) {
         deriv[i-1] = coeffs[i] * i;
     }
 }
 
-// Kiểm tra tính đơn điệu của hàm số
+// Kiểm tra tính đơn điệu của hàm số - Nguyễn Hữu Kiên - 20237451
 bool check_monotonicity(double coeffs[], int degree, double x1, double x2, double step) {
     double deriv[degree];
     f_prime(coeffs, deriv, degree);
@@ -78,16 +78,50 @@ bool check_monotonicity(double coeffs[], int degree, double x1, double x2, doubl
     }
 }
 
-// Hàm nhập dữ liệu đầu vào
-void nhap_du_lieu_dau_vao(FILE* file, double coeffs[], int* degree, int* precision) {
+// Hàm ghi dữ liệu vào file - Nguyễn Hữu Kiên - 20237451
+void write_data_to_file(const char* filename, double x1, double x2, double step, double coeffs[], int degree) {
+    FILE* file = fopen(filename, "w");
+    if (file == NULL) {
+        printf("Khong the mo file %s\n", filename);
+        return;
+    }
+    printf("Ghi du lieu vao file %s...\n", filename);
+    for(double x = x1; x <= x2; x += step) {
+        double y = f(x, coeffs, degree);
+        fprintf(file, "%lf %lf\n", x, y);
+    }
+    fclose(file);
+    printf("Da ghi du lieu vao file %s\n", filename);
+}
+
+
+
+// Các hàm chức năng chính
+
+// Hàm nhập dữ liệu đầu vào - Nguyễn Hữu Kiên - 20237451
+void input_data(FILE* file, double coeffs[], int* degree, int* precision) {
     printf("Nhập số bậc của đa thức (n): ");
     scanf("%d", degree);
+
+    // Nếu nhập là chữ thì không cho nhập
+    while (*degree < 0) {
+        printf("Nhập lại số bậc của đa thức (n): ");
+        scanf("%d", degree);
+    }
+
     fprintf(file, "Hệ số đa thức bậc %d:\n", *degree);
 
-    printf("Nhập hệ số (từ bậc 0 đến bậc %d):\n", *degree);
+    printf("Nhập hệ số (từ bậc 0 đến bậc %d)\n", *degree);
     for (int i = 0; i <= *degree; i++) {
         printf("Hệ số bậc %d: ", i);
         scanf("%lf", &coeffs[i]);
+        
+        // Nếu nhập là chữ thì không cho nhập
+        while (coeffs[i] < -1000000 || coeffs[i] > 1000000) {
+            printf("Nhập lại hệ số bậc %d: ", i);
+            scanf("%lf", &coeffs[i]);
+        }
+
         fprintf(file, "Hệ số bậc %d: %.2lf\n", i, coeffs[i]);
     }
 
@@ -117,28 +151,8 @@ void nhap_du_lieu_dau_vao(FILE* file, double coeffs[], int* degree, int* precisi
     fprintf(file, "---------------------------\n");
 }
 
-// Hàm ghi dữ liệu vào file
-void write_data_to_file(const char* filename, double x1, double x2, double step, double coeffs[], int degree) {
-    FILE* file = fopen(filename, "w");
-    if (file == NULL) {
-        printf("Khong the mo file %s\n", filename);
-        return;
-    }
-    printf("Ghi du lieu vao file %s...\n", filename);
-    for(double x = x1; x <= x2; x += step) {
-        double y = f(x, coeffs, degree);
-        fprintf(file, "%lf %lf\n", x, y);
-    }
-    fclose(file);
-    printf("Da ghi du lieu vao file %s\n", filename);
-}
-
-
-
-// Các hàm chức năng chính
-
-// Hàm tìm miền chứa nghiệm 
-void find_root_intervals_auto(double coeffs[], int degree, double max_range, double step, int precision, double result[]) {
+// Hàm tìm miền chứa nghiệm  - Nguyễn Hữu Kiên - 20237451
+void find_root_intervals(double coeffs[], int degree, double max_range, double step, int precision, double result[]) {
     double x1 = -max_range;
     double x2 = x1 + step;
     double y1,y2;
@@ -174,8 +188,8 @@ void find_root_intervals_auto(double coeffs[], int degree, double max_range, dou
     }
 }
 
-// Hàm tìm khoảng cách ly nghiệm bằng phương pháp chia đôi với độ lệch = 0.5
-void find_interval(double coeffs[], int degree, double x1, double x2, int precision, double result[]) {
+// Hàm tìm khoảng cách ly nghiệm bằng phương pháp chia đôi với độ lệch = 0.5 - Nguyễn Hữu Kiên - 20237451
+void find_isolated_root_interval(double coeffs[], int degree, double x1, double x2, int precision, double result[]) {
     char format[50];
     sprintf(format, "Khoảng phân ly nghiệm: [%%.%df, %%.%df]\n", precision, precision);
     
@@ -198,7 +212,7 @@ void find_interval(double coeffs[], int degree, double x1, double x2, int precis
     result[1] = x2;
 }
 
-// Hàm vẽ đồ thị hàm số
+// Hàm vẽ đồ thị hàm số - Nguyễn Hữu Kiên - 20237451
 void plot_graph(const char* filename) {
     FILE* gnuplotpipe = popen("gnuplot -persistent", "w");
     if (!gnuplotpipe) {
@@ -228,8 +242,8 @@ void plot_graph(const char* filename) {
     printf("Da ve do thi ham so tu file %s\n", filename);
 }
 
-// Phương pháp tiếp tuyến với lần lặp cho n trước
-void tiep_tuyen(double coeffs[], int degree, int n, double a, double b, int precision, FILE *file) {
+// Phương pháp tiếp tuyến với lần lặp cho n trước - Nguyễn Hữu Kiên - 20237451
+void find_root_newton_iterations(double coeffs[], int degree, int n, double a, double b, int precision, FILE *file) {
     double x0 = (f(a, coeffs, degree) * d2f(a, coeffs, degree) > 0) ? a : b;
     double x = x0;
     double x_prev;
@@ -284,8 +298,8 @@ void tiep_tuyen(double coeffs[], int degree, int n, double a, double b, int prec
     fprintf(file, "Sai số theo công thức 2: %.*f\n", precision, error_formula2);
 }
 
-// Phương pháp tiếp tuyến với sai số epsilon cho trước theo công thức sai số 1
-void tiep_tuyen_ss1(double coeffs[], int degree, double a, double b, double epsilon, int precision, FILE *file) {
+// Phương pháp tiếp tuyến với sai số epsilon cho trước theo công thức sai số 1 - Nguyễn Hữu Kiên - 20237451
+void find_root_newton_epsilon1(double coeffs[], int degree, double a, double b, double epsilon, int precision, FILE *file) {
     printf("Phương pháp tiếp tuyến với sai số epsilon cho trước theo công thức sai số 1\n");
     double x0 = (f(a, coeffs, degree) * d2f(a, coeffs, degree) > 0) ? a : b;
     double x = x0;
@@ -341,8 +355,8 @@ void tiep_tuyen_ss1(double coeffs[], int degree, double a, double b, double epsi
     fprintf(file, "Nghiệm gần đúng: x = %.*f\n", precision, x);
 }
 
-// Phương pháp tiếp tuyến với sai số epsilon cho trước theo công thức sai số 2
-void tiep_tuyen_ss2(double coeffs[], int degree, double a, double b, double epsilon, int precision, FILE *file) {
+// Phương pháp tiếp tuyến với sai số epsilon cho trước theo công thức sai số 2 - Nguyễn Hữu Kiên - 20237451
+void find_root_newton_epsilon2(double coeffs[], int degree, double a, double b, double epsilon, int precision, FILE *file) {
     printf("Phương pháp tiếp tuyến với sai số epsilon cho trước theo công thức sai số 2\n");
     double x0 = (f(a, coeffs, degree) * d2f(a, coeffs, degree) > 0) ? a : b;
     double x = x0;
@@ -464,7 +478,7 @@ int main() {
                 case 0: {
                     // Nhập dữ liệu ban đầu
 
-                    nhap_du_lieu_dau_vao(file, coeffs, &degree, &precision);
+                    input_data(file, coeffs, &degree, &precision);
                     has_coeffs = 1;
                     has_root = 0;
                     has_interval = 0;
@@ -496,7 +510,7 @@ int main() {
                     fprintf(file, "Khoảng tìm kiếm: [-%.*lf, %.*lf]\n", precision, x0, precision ,x0); 
 
                     // Tìm miền chứa nghiệm tự động
-                    find_root_intervals_auto(coeffs, degree, x0, 1, precision, result0);
+                    find_root_intervals(coeffs, degree, x0, 1, precision, result0);
                     has_root = 1;
                     fprintf(file, "Một miền chứa nghiệm: [%.*lf, %.*lf]\n", precision, result0[0], precision, result0[1]);
                     fprintf(file, "------------------------------------\n"); // Ghi vào file
@@ -566,7 +580,7 @@ int main() {
                                 printf("Sử dụng miền chứa nghiệm đã tìm được: [%.2lf, %.2lf]\n", x1, x2);
                                 fprintf(file, "Sử dụng miền chứa nghiệm đã tìm được: [%.2lf, %.2lf]\n", x1, x2);
                             }
-                            find_interval(coeffs, degree, x1, x2, precision, result1);
+                            find_isolated_root_interval(coeffs, degree, x1, x2, precision, result1);
                             if (result1[0] == -1 && result1[1] == -1) {
                                 printf("Không tìm thấy khoảng phân ly nghiệm trong miền [%.*lf, %.*lf]\n", precision, x1, precision, x2);
                             } else {
@@ -721,7 +735,7 @@ int main() {
                                         scanf("%d", &n);
                                         fprintf(file, "Số lần lặp n: %d\n", n); // Ghi vào file
 
-                                        tiep_tuyen(coeffs, degree, n, a, b, precision, file);
+                                        find_root_newton_iterations(coeffs, degree, n, a, b, precision, file);
 
                                     } else {
                                         // Phương pháp tiếp tuyến với sai số cho trước
@@ -730,8 +744,8 @@ int main() {
                                         scanf("%lf", &epsilon);
                                         fprintf(file, "Sai số epsilon: %lf\n", epsilon); // Ghi vào file
 
-                                        tiep_tuyen_ss1(coeffs, degree, a, b, epsilon, precision, file);
-                                        tiep_tuyen_ss2(coeffs, degree, a, b, epsilon, precision, file);
+                                        find_root_newton_epsilon1(coeffs, degree, a, b, epsilon, precision, file);
+                                        find_root_newton_epsilon2(coeffs, degree, a, b, epsilon, precision, file);
                                     }
                                     printf("\nNhấn phím bất kỳ để quay lại menu phụ...");
                                     getch();
